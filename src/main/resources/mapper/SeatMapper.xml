@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="issac.mapper.SeatMapper">
+    <select id="selectbus" resultType="String">
+        select sum(seatstatue) from ${tableName} where seattype='0' and seatinterval between #{startid} and #{endid} group by seatname;
+    </select>
+    <select id="selectfir" resultType="String">
+        select sum(seatstatue) from ${tableName} where seattype='1' and seatinterval between #{startid} and #{endid} group by seatname;
+    </select>
+    <select id="selectsec" resultType="String">
+        select sum(seatstatue) from ${tableName} where seattype='2' and seatinterval between #{startid} and #{endid} group by seatname;
+    </select>
+    <select id="selectseat" resultType="issac.model.Seat">
+        select * from ${tableName} where seatname=#{seat.seatname} and seatinterval=#{seat.seatinterval} and seattype=#{seat.seattype};
+    </select>
+    <update id="updateseatstateById">
+        update ${tableName} set seatstatue=#{state} where seatid=#{seat.seatid};
+    </update>
+</mapper>
